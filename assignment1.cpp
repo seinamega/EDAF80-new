@@ -6,7 +6,7 @@
 #include "core/Misc.h"
 #include "core/node.hpp"
 #include "core/ShaderProgramManager.hpp"
-#include "EDAF80/CelestialBody.hpp"
+//#include "EDAF80/CelestialBody.hpp"
 #include "glm/trigonometric.hpp"
 #include "glm/gtc/constants.hpp"
 
@@ -16,6 +16,7 @@
 #include <stack>
 
 #include <cstdlib>
+#include <EDAF80/autoRend.hpp>
 
 
 int main()
@@ -32,7 +33,7 @@ int main()
 	FPSCameraf camera(0.5f * glm::half_pi<float>(),
 	                  static_cast<float>(config::resolution_x) / static_cast<float>(config::resolution_y),
 	                  0.01f, 1000.0f);
-	camera.mWorld.SetTranslate(glm::vec3(0.0f, 30.0f, 1.0f));
+	camera.mWorld.SetTranslate(glm::vec3(0.0f, 3.0f, 7.0f));
 	camera.mWorld.LookAt(glm::vec3(0.0f,0.0f,0.0f));
 	camera.mMouseSensitivity = 0.003f;
 	camera.mMovementSpeed = 0.25f * 12.0f;
@@ -205,7 +206,7 @@ int main()
 	float const pluto_orbit_inclination = glm::radians(11.0f);
 	float const pluto_orbit_radius = 20.0f;
 
-	//set up celstialbody nodes for all planets
+	//set up celestialbody nodes for all planets
 
 	CelestialBody sun_node(sphere, &celestial_body_shader, sun_texture);
 	sun_node.SetScale(glm::vec3(1, 1, 1));
@@ -214,54 +215,54 @@ int main()
 	CelestialBody mercury_node(sphere, &celestial_body_shader, mercury_texture);
 	mercury_node.SetScale(glm::vec3(mercury_scale, mercury_scale, mercury_scale));
 	mercury_node.SetSpinning(mercury_spin_inclination, mercury_spin_speed, glm::radians(45.0f));
-	mercury_node.set_orbit(mercury_orbit_inclination, mercury_orbit_speed, mercury_orbit_radius, 0.0f);
+	mercury_node.set_orbit(mercury_orbit_inclination, mercury_orbit_speed, mercury_orbit_radius, glm::radians(0.0f));
 
 	CelestialBody venus_node(sphere, &celestial_body_shader,venus_texture);
 	venus_node.SetScale(glm::vec3(venus_scale, venus_scale, venus_scale));
 	venus_node.SetSpinning(venus_spin_inclination, venus_spin_speed, glm::radians(45.0f));
-	venus_node.set_orbit(venus_orbit_inclination, venus_orbit_speed, venus_orbit_radius, 0.0f);
+	venus_node.set_orbit(venus_orbit_inclination, venus_orbit_speed, venus_orbit_radius, glm::radians(15.0f));
 	
 	CelestialBody earth_node(sphere, &celestial_body_shader, earth_texture);
 	earth_node.SetScale(glm::vec3(earth_scale, earth_scale,earth_scale));
 	earth_node.SetSpinning(earth_spin_inclination, earth_spin_speed, glm::radians(45.0f));
-	earth_node.set_orbit(earth_orbit_inclination, earth_orbit_speed, earth_orbit_radius, 0.0f);
+	earth_node.set_orbit(earth_orbit_inclination, earth_orbit_speed, earth_orbit_radius, glm::radians(30.0f));
 	
 	CelestialBody moon_node(sphere, &celestial_body_shader, moon_texture);
 	moon_node.SetScale(glm::vec3(moon_scale, moon_scale, moon_scale));
 	moon_node.SetSpinning(moon_spin_inclination, moon_spin_speed, glm::radians(90.0f));
-	moon_node.set_orbit(moon_orbit_inclination, moon_orbit_speed, moon_orbit_radius, 0.0f);
+	moon_node.set_orbit(moon_orbit_inclination, moon_orbit_speed, moon_orbit_radius, glm::radians(45.0f));
 	
 	CelestialBody mars_node(sphere, &celestial_body_shader, mars_texture);
 	mars_node.SetScale(glm::vec3(mars_scale, mars_scale, mars_scale));
 	mars_node.SetSpinning(mars_spin_inclination, mars_spin_speed, glm::radians(45.0f));
-	mars_node.set_orbit(mars_orbit_inclination, mars_orbit_speed, mars_orbit_radius, 0.0f);
+	mars_node.set_orbit(mars_orbit_inclination, mars_orbit_speed, mars_orbit_radius, glm::radians(60.0f));
 
 	CelestialBody jupiter_node(sphere, &celestial_body_shader, jupiter_texture);
 	jupiter_node.SetScale(glm::vec3(jupiter_scale, jupiter_scale, jupiter_scale));
 	jupiter_node.SetSpinning(jupiter_spin_inclination, jupiter_spin_speed, glm::radians(45.0f));
-	jupiter_node.set_orbit(jupiter_orbit_inclination, jupiter_orbit_speed, jupiter_orbit_radius, 0.0f);
+	jupiter_node.set_orbit(jupiter_orbit_inclination, jupiter_orbit_speed, jupiter_orbit_radius, glm::radians(75.0f));
 
 	CelestialBody saturn_node(sphere, &celestial_body_shader, saturn_texture);
 	saturn_node.SetScale(glm::vec3(saturn_scale, saturn_scale, saturn_scale));
 	saturn_node.SetSpinning(saturn_spin_inclination, saturn_spin_speed, glm::radians(45.0f));
-	saturn_node.set_orbit(saturn_orbit_inclination, saturn_orbit_speed,saturn_orbit_radius, 0.0f);
+	saturn_node.set_orbit(saturn_orbit_inclination, saturn_orbit_speed,saturn_orbit_radius, glm::radians(90.0f));
 	saturn_node.add_rings(ring, glm::vec2(1, 1), &celestial_ring_shader, saturn_ring_color, saturn_ring_texture);
 	
 	CelestialBody uranus_node(sphere, &celestial_body_shader, uranus_texture);
 	uranus_node.SetScale(glm::vec3(uranus_scale, uranus_scale, uranus_scale));
 	uranus_node.SetSpinning(uranus_spin_inclination, uranus_spin_speed, glm::radians(45.0f));
-	uranus_node.set_orbit(uranus_orbit_inclination, uranus_orbit_speed, uranus_orbit_radius, 0.0f);
+	uranus_node.set_orbit(uranus_orbit_inclination, uranus_orbit_speed, uranus_orbit_radius, glm::radians(105.0f));
 	uranus_node.add_rings(ring, glm::vec2(1, 1), &celestial_ring_shader, uranus_ring_color, uranus_ring_texture);
 
 	CelestialBody neptune_node(sphere, &celestial_body_shader, neptune_texture);
 	neptune_node.SetScale(glm::vec3(neptune_scale, neptune_scale, neptune_scale));
 	neptune_node.SetSpinning(neptune_spin_inclination,neptune_spin_speed, glm::radians(45.0f));
-	neptune_node.set_orbit(neptune_orbit_inclination, neptune_orbit_speed, neptune_orbit_radius, 0.0f);
+	neptune_node.set_orbit(neptune_orbit_inclination, neptune_orbit_speed, neptune_orbit_radius, glm::radians(120.0f));
 
 	CelestialBody pluto_node(sphere, &celestial_body_shader, pluto_texture);
 	pluto_node.SetScale(glm::vec3(pluto_scale, pluto_scale, pluto_scale));
 	pluto_node.SetSpinning(pluto_spin_inclination,pluto_spin_speed, glm::radians(45.0f));
-	pluto_node.set_orbit(pluto_orbit_inclination, pluto_orbit_speed, pluto_orbit_radius, 0.0f);
+	pluto_node.set_orbit(pluto_orbit_inclination, pluto_orbit_speed, pluto_orbit_radius, glm::radians(135.0f));
 
 	Node solar_system_node;
 	//solar_system_node.add_child(&sun_node);
@@ -356,7 +357,9 @@ int main()
 		// Traverse the scene graph and render all nodes
 		//
 		std::stack<CelestialBody*> node_stack({ &sun_node });
-		
+		std::stack<CelestialBody*> test_stack;
+		autoRend(&earth_node, test_stack*);
+		//std::cout << node_stack.size();
 
 
 		std::stack<glm::mat4> matrix_stack({ glm::mat4(1.0f) });
